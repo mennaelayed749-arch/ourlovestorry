@@ -946,7 +946,7 @@
         <audio id="bgAudio" loop crossorigin="anonymous">
             <source src="Albumaty.Com_fryd_mtsybsh_aydya_.mp3.mpeg" type="audio/mpeg">
         </audio>
-        <button class="audio-btn" onclick="toggleAudio()" id="audioBtn">🎵 تشغيل الريكورد</button>
+        <button class="audio-btn" onclick="toggleAudio()" id="audioBtn">🎵 تيجي نبني بيت؟ ❤️</button>
     </div>
 
     <!-- ================= الصفحة الأولى ================= -->
@@ -1278,9 +1278,9 @@
             const audio = document.getElementById('bgAudio');
             const audioBtn = document.getElementById('audioBtn');
             audio.play().then(() => {
-                audioBtn.innerText = '⏸️ إيقاف الريكورد';
+                audioBtn.innerText = '⏸️ إيقاف الأغنية';
             }).catch(() => {
-                audioBtn.innerText = '🎵 تشغيل الريكورد';
+                audioBtn.innerText = '🎵 تيجي نبني بيت؟ ❤️';
             });
 
             typeFinalMessage();
@@ -1490,16 +1490,16 @@
 
             if (audio.paused) {
                 audio.play().then(() => {
-                    btn.innerText = '⏸️ إيقاف الريكورد';
+                    btn.innerText = '⏸️ إيقاف الأغنية';
                 }).catch(() => {
                     btn.innerText = '🎵 لا يمكن التشغيل الآن';
                     setTimeout(() => {
-                        btn.innerText = '🎵 تشغيل الريكورد';
+                        btn.innerText = '🎵 تيجي نبني بيت؟ ❤️';
                     }, 1200);
                 });
             } else {
                 audio.pause();
-                btn.innerText = '🎵 تشغيل الريكورد';
+                btn.innerText = '🎵 تيجي نبني بيت؟ ❤️';
             }
         }
 
