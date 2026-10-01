@@ -32,6 +32,76 @@
             overflow-x: hidden;
         }
 
+        .password-gate {
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            background: rgba(255, 240, 245, 0.96);
+            backdrop-filter: blur(8px);
+        }
+
+        .password-panel {
+            width: min(100%, 380px);
+            padding: 30px 24px;
+            background: var(--card-bg);
+            border: 1px solid #ffd1dc;
+            border-radius: 18px;
+            box-shadow: 0 12px 32px rgba(89, 13, 34, 0.14);
+        }
+
+        .password-panel h1 {
+            margin-bottom: 10px;
+            font-size: 1.65rem;
+        }
+
+        .password-panel p {
+            margin-bottom: 20px;
+            color: #6e4c53;
+        }
+
+        .password-panel label {
+            display: block;
+            margin-bottom: 7px;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .password-panel input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--secondary);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .password-panel button {
+            width: 100%;
+            margin-top: 14px;
+            padding: 12px;
+            color: white;
+            background: var(--primary);
+            border: 0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .password-panel button:hover {
+            background: #c9184a;
+        }
+
+        .password-error {
+            min-height: 1.5em;
+            margin: 12px 0 0 !important;
+            color: #c9184a !important;
+            font-weight: bold;
+        }
+
         /* Floating Hearts */
         .heart {
             position: fixed;
@@ -860,6 +930,17 @@
 </head>
 <body>
 
+    <div class="password-gate" id="passwordGate">
+        <form class="password-panel" id="passwordForm" role="dialog" aria-modal="true" aria-labelledby="passwordHeading">
+            <h1 id="passwordHeading">مكان منة ومحمد. ❤️</h1>
+            <p>اكتبي كلمة المرور عشان تفتحي الموقع.</p>
+            <label for="passwordInput">كلمة المرور</label>
+            <input id="passwordInput" type="password" inputmode="numeric" autocomplete="off" required aria-describedby="passwordError">
+            <button type="submit">دخول</button>
+            <p class="password-error" id="passwordError" role="alert" aria-live="polite"></p>
+        </form>
+    </div>
+
     <!-- Audio Player (الأغنية / الريكورد) -->
     <div class="audio-container">
         <audio id="bgAudio" loop crossorigin="anonymous">
@@ -1144,6 +1225,33 @@
     </div>
 
     <script>
+        const passwordGate = document.getElementById('passwordGate');
+        const passwordForm = document.getElementById('passwordForm');
+        const passwordInput = document.getElementById('passwordInput');
+        const correctPassword = '1682026';
+
+        for (const element of document.body.children) {
+            if (element !== passwordGate) {
+                element.inert = true;
+            }
+        }
+
+        passwordInput.focus();
+        passwordForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            if (passwordInput.value !== correctPassword) {
+                document.getElementById('passwordError').textContent = 'كلمة المرور غير صحيحة.';
+                passwordInput.select();
+                return;
+            }
+
+            for (const element of document.body.children) {
+                element.inert = false;
+            }
+            passwordGate.remove();
+        });
+
         // 1. Navigation Between Pages
         function goToPage(pageNumber) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
